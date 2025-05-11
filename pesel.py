@@ -30,11 +30,15 @@ def verify_pesel(pesel: str) -> int:
     """
     ### TUTAJ PODAJ ROZWIĄZANIE ZADANIA
 
-    ### return 0 - powinno być zmienione i zwrócić prawdziwy wynik (zgodny z oczekiwaniami)
-    return 0
+    weights = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3, 1]
+    checksum = sum(int(pesel[i]) * weights[i] for i in range(10))
+    control_digit = (10 - (checksum % 10)) % 10
 
+ ### return 0 - powinno być zmienione i zwrócić prawdziwy wynik (zgodny z oczekiwaniami)
+    return 1 if control_digit == int(pesel[-1]) else 0
 
 # Przykładowe wywołanie:
 if __name__ == "__main__":
-    pesel_input = "97082123152"
-    print(verify_pesel(pesel_input))  # Oczekiwane wyjście: 0
+    pesel_input = input("Podaj numer PESEL (11 cyfr): ")
+    print(verify_pesel(pesel_input))# Oczekiwane wyjście: 0
+    print("PESEL poprawny." if verify_pesel(pesel_input) == 1 else "PESEL niepoprawny.")

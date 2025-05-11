@@ -49,9 +49,29 @@ def index_documents(documents: list[str], queries: list[str]) -> list[list[int]]
     """
     ### TUTAJ PODAJ ROZWIĄZANIE ZADANIA
 
-    ### return [[]] - powinno być zmienione i zwrócić prawdziwy wynik (zgodny z oczekiwaniami)
-    return [[]]
+    import string
 
+    word_counts = []
+    for doc in documents:
+        translator = str.maketrans('', '', string.punctuation)
+        cleaned = doc.translate(translator).lower()
+        words = cleaned.split()
+        counter = {}
+        for word in words:
+            counter[word] = counter.get(word, 0) + 1
+        word_counts.append(counter)
+
+    results = []
+    for query in queries:
+        query = query.lower()
+        found = []
+        for i, counter in enumerate(word_counts):
+            if query in counter:
+                found.append((-counter[query], i))
+        found.sort()
+        results.append([i for _, i in found])
+    ### return [[]] - powinno być zmienione i zwrócić prawdziwy wynik (zgodny z oczekiwaniami)
+    return results
 
 # Przykładowe wywołanie:
 if __name__ == "__main__":

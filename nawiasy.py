@@ -32,8 +32,17 @@ def check_parentheses(s: str) -> bool:
     """
     ### TUTAJ PODAJ ROZWIĄZANIE ZADANIA
 
-    ### return False - powinno być zmienione i zwrócić prawdziwy wynik (zgodny z oczekiwaniami)
-    return False
+    stack = []
+
+    for char in s:
+        if char == '(':
+            stack.append(char)
+        elif char == ')':
+            if not stack:
+            ### return False - powinno być zmienione i zwrócić prawdziwy wynik (zgodny z oczekiwaniami)
+                return False
+            stack.pop()
+    return len(stack) == 0
 
 # Przykładowe wywołanie:
 if __name__ == "__main__":
@@ -44,5 +53,15 @@ if __name__ == "__main__":
         "Czesc (o kurcze, chyba niechcacy zamkne ten nawias dwa razy))",
         "())(("
     ]
+
     for example in examples:
-        print(f"{example} -> {check_parentheses(example)}")
+         result = check_parentheses(example)
+         message = "Nawiasy poprawne." if result else "Nawiasy niepoprawne."
+         print(f"{example} -> {result} ({message})")
+
+if __name__ == "__main__":
+    sentence_input = input("Podaj ciąg znaków do analizy: ")
+
+    result = check_parentheses(sentence_input)
+    message = "Nawiasy poprawne." if result else "Nawiasy niepoprawne."
+    print(f"{sentence_input} -> {result} ({message})")
